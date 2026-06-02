@@ -1,0 +1,44 @@
+{
+  "expo": {
+    "name": "AI採寸",
+    "slug": "body-measurement-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "scheme": "bodymeasure",
+    "splash": {
+      "backgroundColor": "#0f0f1a"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.yourcompany.bodymeasure",
+      "infoPlist": {
+        "NSCameraUsageDescription": "体型採寸のため正面・側面の全身写真を撮影します",
+        "NSPhotoLibraryUsageDescription": "撮影した写真をライブラリに保存します"
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0f0f1a"
+      },
+      "package": "com.yourcompany.bodymeasure",
+      "permissions": [
+        "CAMERA"
+      ]
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "体型採寸のため全身写真を撮影します"
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p /Users/shuntasorimachi/body-measurement-app/backend/routers \\\\ *)"
+    ],
+    "additionalDirectories": [
+      "/Users/shuntasorimachi/body-measurement-app/backend"
+    ]
+  }
+}
