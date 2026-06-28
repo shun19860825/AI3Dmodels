@@ -1,25 +1,194 @@
 import React from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import Svg, { Path, Ellipse } from 'react-native-svg';
 
 const { width, height } = Dimensions.get('window');
-const GUIDE_W = width * 0.38;
-const GUIDE_H = height * 0.65;
+const GUIDE_W = width * 0.42;
+const GUIDE_H = height * 0.68;
 
 interface Props {
   mode: 'front' | 'side';
 }
 
+// Natural front-view human silhouette path (normalized 0-100 viewBox)
+const FRONT_PATH = `
+  M 50 3
+  C 42 3, 36 9, 36 17
+  C 36 25, 42 31, 50 31
+  C 58 31, 64 25, 64 17
+  C 64 9, 58 3, 50 3 Z
+
+  M 38 33
+  C 30 35, 24 40, 22 47
+  L 18 62
+  C 16 68, 18 72, 22 73
+  L 26 74
+  L 24 88
+  C 23 92, 25 95, 29 95
+  C 33 95, 35 92, 35 88
+  L 36 74
+  L 50 76
+  L 64 74
+  L 65 88
+  C 65 92, 67 95, 71 95
+  C 75 95, 77 92, 76 88
+  L 74 74
+  L 78 73
+  C 82 72, 84 68, 82 62
+  L 78 47
+  C 76 40, 70 35, 62 33
+  C 58 32, 55 31.5, 50 31.5
+  C 45 31.5, 42 32, 38 33 Z
+
+  M 22 73
+  L 12 78
+  C 8 80, 6 84, 8 88
+  L 14 97
+  C 16 100, 20 99, 21 96
+  L 26 74
+  Z
+
+  M 78 73
+  L 88 78
+  C 92 80, 94 84, 92 88
+  L 86 97
+  C 84 100, 80 99, 79 96
+  L 74 74
+  Z
+`;
+
+// Natural side-view human silhouette path (normalized 0-100 viewBox)
+const SIDE_PATH = `
+  M 52 3
+  C 44 3, 38 9, 38 17
+  C 38 25, 44 31, 52 31
+  C 60 31, 66 25, 66 17
+  C 66 9, 60 3, 52 3 Z
+
+  M 48 32
+  C 40 34, 34 40, 33 48
+  L 30 65
+  C 29 70, 31 74, 36 75
+  L 38 75
+  L 37 88
+  C 36 93, 38 96, 42 96
+  C 46 96, 48 93, 48 88
+  L 49 75
+  L 56 75
+  L 57 88
+  C 57 93, 59 96, 63 96
+  C 67 96, 69 93, 68 88
+  L 67 75
+  L 70 74
+  C 74 72, 76 68, 74 62
+  L 70 46
+  C 68 39, 62 34, 54 32
+  C 52 31.5, 50 31.5, 48 32 Z
+
+  M 48 32
+  C 44 33, 38 36, 34 40
+  L 28 55
+  C 26 59, 27 62, 30 63
+  L 33 63
+  L 30 65
+  Z
+`;
+
+function FrontSilhouette({ w, h }: { w: number; h: number }) {
+  return (
+    <Svg width={w} height={h} viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+      {/* Head */}
+      <Ellipse
+        cx="50" cy="11"
+        rx="13" ry="12"
+        fill="none"
+        stroke="rgba(255,255,255,0.75)"
+        strokeWidth="2"
+      />
+      {/* Neck */}
+      <Path
+        d="M 44 22 L 44 28 C 44 30 46 31 50 31 C 54 31 56 30 56 28 L 56 22"
+        fill="none"
+        stroke="rgba(255,255,255,0.75)"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      {/* Shoulders & torso */}
+      <Path
+        d="M 44 28 C 38 29 30 34 27 42 L 25 55 L 25 70 C 25 74 28 76 33 76 L 38 76 L 38 92 C 38 96 41 98 45 97 C 49 96 50 93 50 90 L 50 76 L 50 76 L 50 90 C 50 93 51 96 55 97 C 59 98 62 96 62 92 L 62 76 L 67 76 C 72 76 75 74 75 70 L 75 55 L 73 42 C 70 34 62 29 56 28 C 54 28 52 28 50 28 C 48 28 46 28 44 28 Z"
+        fill="none"
+        stroke="rgba(255,255,255,0.75)"
+        strokeWidth="2"
+        strokeLinejoin="round"
+      />
+      {/* Left arm */}
+      <Path
+        d="M 27 42 L 18 60 C 16 65 17 70 20 72 L 23 73 C 20 68 21 63 24 55 Z"
+        fill="none"
+        stroke="rgba(255,255,255,0.75)"
+        strokeWidth="2"
+        strokeLinejoin="round"
+      />
+      {/* Right arm */}
+      <Path
+        d="M 73 42 L 82 60 C 84 65 83 70 80 72 L 77 73 C 80 68 79 63 76 55 Z"
+        fill="none"
+        stroke="rgba(255,255,255,0.75)"
+        strokeWidth="2"
+        strokeLinejoin="round"
+      />
+    </Svg>
+  );
+}
+
+function SideSilhouette({ w, h }: { w: number; h: number }) {
+  return (
+    <Svg width={w} height={h} viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+      {/* Head */}
+      <Ellipse
+        cx="52" cy="11"
+        rx="12" ry="12"
+        fill="none"
+        stroke="rgba(255,255,255,0.75)"
+        strokeWidth="2"
+      />
+      {/* Neck */}
+      <Path
+        d="M 47 22 L 46 28 C 46 30 48 31 52 31 C 56 31 57 30 57 28 L 57 23"
+        fill="none"
+        stroke="rgba(255,255,255,0.75)"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      {/* Torso side view (slight chest/belly curve) */}
+      <Path
+        d="M 46 28 C 40 30 34 36 32 44 L 30 58 C 30 65 33 72 38 74 L 40 74 L 40 90 C 40 95 43 98 47 97 C 51 96 52 93 52 89 L 52 74 L 58 74 L 58 90 C 58 95 61 98 65 97 C 69 96 70 93 70 89 L 70 73 C 74 71 76 66 75 58 L 72 44 C 70 36 64 30 57 28 C 55 27 53 27 52 27 C 50 27 48 27 46 28 Z"
+        fill="none"
+        stroke="rgba(255,255,255,0.75)"
+        strokeWidth="2"
+        strokeLinejoin="round"
+      />
+      {/* Arm (side view - one visible arm slightly in front) */}
+      <Path
+        d="M 32 44 L 24 60 C 22 65 23 70 27 72 L 30 73 C 27 68 27 62 30 55 Z"
+        fill="none"
+        stroke="rgba(255,255,255,0.75)"
+        strokeWidth="2"
+        strokeLinejoin="round"
+      />
+    </Svg>
+  );
+}
+
 export default function CameraGuide({ mode }: Props) {
   return (
     <View style={styles.container} pointerEvents="none">
-      {/* Silhouette outline */}
-      <View style={styles.silhouette}>
-        {/* Head */}
-        <View style={styles.head} />
-        {/* Body */}
-        <View style={styles.body} />
-        {/* Legs */}
-        <View style={styles.legs} />
+      {/* SVG silhouette */}
+      <View style={styles.silhouetteWrapper}>
+        {mode === 'front'
+          ? <FrontSilhouette w={GUIDE_W} h={GUIDE_H} />
+          : <SideSilhouette w={GUIDE_W} h={GUIDE_H} />
+        }
       </View>
 
       {/* Corner markers */}
@@ -52,39 +221,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  silhouette: {
+  silhouetteWrapper: {
     width: GUIDE_W,
     height: GUIDE_H,
-    borderWidth: 2,
-    borderColor: 'rgba(255, 255, 255, 0.6)',
-    borderRadius: 12,
     alignItems: 'center',
-    paddingTop: 8,
-    gap: 0,
-  },
-  head: {
-    width: GUIDE_W * 0.28,
-    height: GUIDE_W * 0.28,
-    borderRadius: GUIDE_W * 0.14,
-    borderWidth: 2,
-    borderColor: 'rgba(255, 255, 255, 0.5)',
-    marginTop: 8,
-  },
-  body: {
-    width: GUIDE_W * 0.55,
-    height: GUIDE_H * 0.35,
-    borderWidth: 2,
-    borderColor: 'rgba(255, 255, 255, 0.5)',
-    borderRadius: 6,
-    marginTop: 4,
-  },
-  legs: {
-    width: GUIDE_W * 0.55,
-    height: GUIDE_H * 0.40,
-    borderWidth: 2,
-    borderColor: 'rgba(255, 255, 255, 0.5)',
-    borderRadius: 6,
-    marginTop: 2,
+    justifyContent: 'center',
   },
   corner: {
     position: 'absolute',

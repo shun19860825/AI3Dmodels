@@ -1,8 +1,6 @@
 import { MeasurementResponse } from '../types';
 
-// ローカル開発(シミュレータ): 'http://localhost:8000'
-// 実機テスト: PCのIPアドレス
-const BASE_URL = 'http://192.168.0.17:8000';
+const BASE_URL = 'https://backend-XXXX.onrender.com';
 
 export interface EstimateParams {
   frontImageUri: string;
