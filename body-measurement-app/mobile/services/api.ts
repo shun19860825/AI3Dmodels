@@ -1,6 +1,6 @@
 import { MeasurementResponse } from '../types';
 
-const BASE_URL = 'https://backend-XXXX.onrender.com';
+const BASE_URL = 'https://backend-ux1h.onrender.com';
 
 export interface EstimateParams {
   frontImageUri: string;
